@@ -90,6 +90,17 @@ select company.Location,company.FN,company.Salary,company.Job,employee.FN,employ
 from company
 inner JOIN employee on company.FN=employee.FN;
 
+-- used with function to take the joined table and work through the process of
+-- data extraction
+
+with joined_t as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+
+select * from joined_t;
+
 
 
 
