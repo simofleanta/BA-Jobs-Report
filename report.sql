@@ -51,6 +51,44 @@ SELECT Job, Age_av
 from avg_age
 Group by Sector;
 
+-- Average age per job ;
+select* from company;
+select Job,AVG(Age) from company
+GROUP BY Job;
+
+-- Salary per location;
+
+SELECT Job, Salary, Location from company;
+
+--How many people work as BA?
+
+select count(FN) from company where Job='Business Analyst';
+
+--How many people work in Berlin?
+
+select count(FN) from company WHERE Location='Berlin';
+
+-- collect all data for Berlin
+
+select Salary, Job,FN from company where Location='Berlin'
+GROUP BY  Salary,Job
+Order by Salary asc;
+
+-- How many business analysts do we have in Berlin?
+select FN, Location, Job from company WHERE Location='Berlin' 
+and Job='Business Analyst';
+
+--
+select FN, Salary from company WHERE Location='Berlin, Perth';
+
+-- Inner join the tables company and employee so that further insights can be extracted
+
+SELECT * from company;
+select * from employee;
+
+select company.Location,company.FN,company.Salary,company.Job,employee.FN,employee.KPI
+from company
+inner JOIN employee on company.FN=employee.FN;
 
 
 
