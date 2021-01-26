@@ -101,6 +101,9 @@ with joined_t as
 
 select * from joined_t;
 
+select* from employee 
+group by KPI
+order Rating asc;
 
 
 
