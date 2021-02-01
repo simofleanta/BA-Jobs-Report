@@ -160,7 +160,13 @@ ORDER BY  KPI ASC ;
 --the more problem solved the higher the kpi. And salary
 
 
-
+with Max_Salary as
+    (select company.Age,company.Location,company.FN,company.Salary,company.Job,employee.KPI,employee.Problem_solved
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+select Age,max(Age),Fn, Location,Job,KPI, min(Salary), max(Salary) from Max_Salary
+ORDER BY  KPI ASC ;
 
 
 
