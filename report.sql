@@ -105,6 +105,59 @@ select* from employee
 group by KPI
 order Rating asc;
 
+-- merge databases and slect avg salary per kpi form the joine_t TABLE 
+    select company.Location,company.FN,company.Salary,company.Job,employee.FN,employee.KPI
+from company
+inner JOIN employee on company.FN=employee.FN;
+
+with joined_t as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+
+select Location, KPI, Salary from joined_t where KPI >17;
+
+
+-- Avg salary per kpi 
+with KPI_t as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+select FN, Job, Location,KPI, AVG(Salary)
+from KPI_t
+where KPI >17
+Group by Location;
+
+
+with Max_t as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI,employee.Problem_solved
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+select Problem_solved, Fn, Location,Job,max(KPI)from Max_t;
+
+
+with Max_kpi as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI,employee.Problem_solved
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+select Problem_Solved,  Fn, Location,Job,min(KPI), avg(Salary) from Max_kpi
+Group by Problem_Solved;
+
+--Is there a relatonship between kpi and problem solving?
+with Max_Salary as
+    (select company.Location,company.FN,company.Salary,company.Job,employee.KPI,employee.Problem_solved
+    from company
+    inner JOIN employee on company.FN=employee.FN
+)
+select Problem_Solved,  Fn, Location,Job,KPI, max(Salary) from Max_Salary
+Group by Problem_Solved
+ORDER BY  KPI ASC ;
+
+--the more problem solved the higher the kpi. And salary
 
 
 
